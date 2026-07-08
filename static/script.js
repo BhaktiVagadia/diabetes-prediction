@@ -7,7 +7,7 @@ predictionForm.addEventListener('submit', function(event) {
         data[key] = parseFloat(data[key]);
     }
     const jsonPayload = JSON.stringify(data);
-    fetch('http://127.0.0.1:5000/predict', {
+    fetch('/predict', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -69,5 +69,11 @@ predictionForm.addEventListener('submit', function(event) {
 
     .catch(error => {
         console.error("Error communicating with the API:", error);
+        const resultContainer = document.getElementById('result-container');
+        resultContainer.innerHTML = `
+            <div class="mt-6 p-4 rounded-base border border-danger bg-red-50">
+                <p class="text-sm font-medium text-danger-strong">Something went wrong: ${error.message}</p>
+            </div>
+        `;
     });
 });

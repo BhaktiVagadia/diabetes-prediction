@@ -1,5 +1,5 @@
 # --- Import Core Libraries ---
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,render_template
 import joblib
 import pandas as pd
 from flask_cors import CORS
@@ -13,26 +13,7 @@ CORS(app)
 
 @app.route('/', methods=['GET'])
 def home():
-    return jsonify({
-        "message": "Welcome to the Diabetes Prediction API!",
-        "description": "This is a machine learning service to predict the likelihood of diabetes.",
-        "endpoints": {
-            "/predict": {
-                "method": "POST",
-                "description": "Send patient data in JSON format to get a prediction.",
-                "example_payload": {
-                    "Pregnancies": 6,
-                    "Glucose": 148,
-                    "BloodPressure": 72,
-                    "SkinThickness": 35,
-                    "Insulin": 0,
-                    "BMI": 33.6,
-                    "DiabetesPedigreeFunction": 0.627,
-                    "Age": 50
-                }
-            }
-        }
-    })
+    return render_template('index.html')
 
 
 @app.route('/predict', methods=['POST'])

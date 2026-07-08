@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction</title>
+    <!-- Injecting your design tokens into Tailwind CDN config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#3b82f6',
+                            medium: '#60a5fa',
+                            strong: '#2563eb'
+                        },
+                        heading: '#111827',
+                        body: '#4b5563',
+                        default: {
+                            DEFAULT: '#d1d5db',
+                            medium: '#9ca3af'
+                        },
+                        neutral: {
+                            'primary-soft': '#f3f4f6',
+                            'secondary-medium': '#e5e7eb',
+                            'tertiary-medium': '#d1d5db',
+                            'tertiary': '#9ca3af',
+                            'tertiary-soft': '#f9fafb'
+                        },
+                        success: {
+                            DEFAULT: '#10b981',
+                            medium: '#34d399',
+                            strong: '#059669'
+                        },
+                        danger: {
+                            DEFAULT: '#ef4444',
+                            medium: '#f87171',
+                            strong: '#dc2626'
+                        },
+                        warning: {
+                            DEFAULT: '#f59e0b',
+                            medium: '#fbbf24',
+                            strong: '#d97706'
+                        },
+                        dark: {
+                            DEFAULT: '#1f2937',
+                            strong: '#111827'
+                        }
+                    },
+                    borderRadius: {
+                        'base': '0.375rem'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4 font-sans">
+
+    <!-- Main Centered Container with half-page desktop constraint limits -->
+    <div class="w-full max-w-xl bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-8">
+
+        <h1 class="text-2xl font-bold text-center mb-8 text-heading">Diabetes Prediction Form</h1>
+
+        <form id="prediction-form" class="w-full">
+            <div class="mb-5">
+                <label for="pregnancies" class="block mb-2.5 text-sm font-medium text-heading">Pregnancies:</label>
+                <input type="number" id="pregnancies" name="Pregnancies" placeholder="e.g., 6" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
+            </div>
+
+            <div class="mb-5">
+                <label for="glucose" class="block mb-2.5 text-sm font-medium text-heading">Glucose:</label>
+                <input type="number" id="glucose" name="Glucose" placeholder="e.g., 148" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
+            </div>
+
+            <div class="mb-5">
+                <label for="blood-pressure" class="block mb-2.5 text-sm font-medium text-heading">Blood Pressure:</label>
+                <input type="number" id="blood-pressure" name="BloodPressure" placeholder="e.g., 72" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
+            </div>
+
+            <div class="mb-5">
+                <label for="skin-thickness" class="block mb-2.5 text-sm font-medium text-heading">Skin Thickness:</label>
+                <input type="number" id="skin-thickness" name="SkinThickness" placeholder="e.g., 35" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
+            </div>
+
+            <div class="mb-5">
+                <label for="insulin" class="block mb-2.5 text-sm font-medium text-heading">Insulin:</label>
+                <input type="number" id="insulin" name="Insulin" placeholder="e.g., 0" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
+            </div>
+
+            <div class="mb-5">
+                <label for="bmi" class="block mb-2.5 text-sm font-medium text-heading">BMI:</label>
+                <input type="number" id="bmi" name="BMI" step="0.1" placeholder="e.g., 33.6" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
+            </div>
+
+            <div class="mb-5">
+                <label for="dpf" class="block mb-2.5 text-sm font-medium text-heading">Diabetes Pedigree Function:</label>
+                <input type="number" id="dpf" name="DiabetesPedigreeFunction" step="0.001" placeholder="e.g., 0.627" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
+            </div>
+
+            <div class="mb-5">
+                <label for="age" class="block mb-2.5 text-sm font-medium text-heading">Age:</label>
+                <input type="number" id="age" name="Age" placeholder="e.g., 50" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
+            </div>
+
+            <!-- Primary Action Button -->
+            <button type="submit" class="w-full text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-semibold leading-5 rounded-base text-sm px-4 py-3 focus:outline-none transition-colors">
+                Predict
+            </button>
+        </form>
+
+        <!-- Nested dynamic data response element location target -->
+        <div id="result-container" class="w-full"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

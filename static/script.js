@@ -1,12 +1,27 @@
 const predictionForm = document.getElementById('prediction-form');
+
 predictionForm.addEventListener('submit', function(event) {
     event.preventDefault();
+
+    // Elements for controlling view visibility
+    const formView = document.getElementById('form-view');
+    const resultView = document.getElementById('result-view');
+
+    // Result details placeholder targets
+    const resultIcon = document.getElementById('result-icon');
+    const resultLabel = document.getElementById('result-label');
+    const probabilityContext = document.getElementById('probability-context');
+    const resultProbability = document.getElementById('result-probability');
+
     const formData = new FormData(predictionForm);
     const data = Object.fromEntries(formData.entries());
+
     for (const key in data) {
         data[key] = parseFloat(data[key]);
     }
+
     const jsonPayload = JSON.stringify(data);
+
     fetch('/predict', {
         method: 'POST',
         headers: {
@@ -21,59 +36,64 @@ predictionForm.addEventListener('submit', function(event) {
         return response.json();
     })
     .then(predictionData => {
-    const resultContainer = document.getElementById('result-container');
+        const label = predictionData.prediction_label;
+        console.log(predictionData)
+        const isDiabetic = label === 'Diabetic';
 
-    const label = predictionData.prediction_label;
-    const confidenceNonDiabetic = (predictionData.confidence_scores['Non-Diabetic'] * 100).toFixed(2);
-    const confidenceDiabetic = (predictionData.confidence_scores['Diabetic'] * 100).toFixed(2);
+        // 1. Assign values, emoticons, and contextual words precisely matching image_1b12a3.png
+        if (isDiabetic) {
+            resultIcon.textContent = "🩸";
+            resultLabel.textContent = "Diabetic";
+            probabilityContext.textContent = "diabetic";
 
-    // Determine conditional dynamic styles based on the outcome result
-    const isDiabetic = label === 'Diabetic';
-    const statusColorClass = isDiabetic ? 'text-danger' : 'text-success';
-    const headerColorClass = isDiabetic ? 'text-danger' : 'text-success';
+            // Extract confidence and format string percentage
+            const confidenceDiabetic = (predictionData.confidence_scores['Diabetic'] * 100).toFixed(2);
+            resultProbability.textContent = `${confidenceDiabetic}%`;
+        } else {
+            resultIcon.textContent = "💚";
+            resultLabel.textContent = "Non-Diabetic";
+            probabilityContext.textContent = "non-diabetic";
 
-    const resultHTML = `
-        <div class="mt-6 p-5 bg-neutral-primary-soft border border-default-medium rounded-base shadow-xs w-full">
-            <!-- Header -->
-            <h3 class="text-sm font-semibold ${headerColorClass} uppercase tracking-wider mb-3">
-                Prediction Result
-            </h3>
+            const confidenceNonDiabetic = (predictionData.confidence_scores['Non-Diabetic'] * 100).toFixed(2);
+            resultProbability.textContent = `${confidenceNonDiabetic}%`;
+        }
 
-            <!-- Core Outcome -->
-            <div class="flex items-baseline gap-2 mb-4 border-b border-default pb-3">
-                <span class="text-sm font-medium text-heading">Outcome:</span>
-                <span class="text-lg font-bold ${statusColorClass}">${label}</span>
-            </div>
-
-            <!-- Metrics Sub-Header -->
-            <h4 class="text-xs font-bold text-heading uppercase tracking-wide mb-2">
-                Confidence Scores:
-            </h4>
-
-            <!-- Scores Data List -->
-            <div class="space-y-1.5">
-                <div class="flex justify-between items-center text-sm">
-                    <span class="text-body font-medium">Non-Diabetic:</span>
-                    <span class="${isDiabetic ? 'font-medium text-heading' : 'font-bold text-success'}">${confidenceNonDiabetic}%</span>
-                </div>
-                <div class="flex justify-between items-center text-sm">
-                    <span class="text-body font-medium">Diabetic:</span>
-                    <span class="${isDiabetic ? 'font-bold text-danger' : 'font-medium text-heading'}">${confidenceDiabetic}%</span>
-                </div>
-            </div>
-        </div>
-    `;
-
-    resultContainer.innerHTML = resultHTML;
-})
-
+        // 2. Hide the Form View and display the customized Result View instantly
+        if (formView && resultView) {
+            formView.classList.add('hidden');
+            resultView.classList.remove('hidden');
+        }
+    })
     .catch(error => {
         console.error("Error communicating with the API:", error);
+
+        // Render fallback container inline inside the active screen view if an exception breaks the promise chain
         const resultContainer = document.getElementById('result-container');
-        resultContainer.innerHTML = `
-            <div class="mt-6 p-4 rounded-base border border-danger bg-red-50">
-                <p class="text-sm font-medium text-danger-strong">Something went wrong: ${error.message}</p>
-            </div>
-        `;
+        if (resultContainer) {
+            resultContainer.innerHTML = `
+                <div class="mt-6 p-4 rounded-base border border-danger bg-red-50 text-center">
+                    <p class="text-sm font-medium text-danger-strong">Something went wrong: ${error.message}</p>
+                </div>
+            `;
+        }
     });
 });
+
+// 3. Set up the back navigation handler button action logic
+const goBackBtn = document.getElementById('go-back-btn');
+if (goBackBtn) {
+    goBackBtn.addEventListener('click', function() {
+        const formView = document.getElementById('form-view');
+        const resultView = document.getElementById('result-view');
+
+        if (formView && resultView) {
+            resultView.classList.add('hidden');
+            formView.classList.remove('hidden');
+            predictionForm.reset(); // Clear old input fields out for a clean slate
+
+            // Wipe out standard error banners if present
+            const resultContainer = document.getElementById('result-container');
+            if (resultContainer) resultContainer.innerHTML = '';
+        }
+    });
+}

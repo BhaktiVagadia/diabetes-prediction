@@ -12,109 +12,136 @@
                 extend: {
                     colors: {
                         brand: {
-                            DEFAULT: '#3b82f6',
-                            medium: '#60a5fa',
-                            strong: '#2563eb'
+                            DEFAULT: '#1d4ed8', /* Professional dark blue for prediction buttons */
+                            medium: '#3b82f6',
+                            strong: '#1e40af'
                         },
-                        heading: '#111827',
-                        body: '#4b5563',
+                        heading: '#0f172a',
+                        body: '#334155',
                         default: {
-                            DEFAULT: '#d1d5db',
-                            medium: '#9ca3af'
+                            DEFAULT: '#cbd5e1',
+                            medium: '#94a3b8'
                         },
                         neutral: {
-                            'primary-soft': '#f3f4f6',
-                            'secondary-medium': '#e5e7eb',
-                            'tertiary-medium': '#d1d5db',
-                            'tertiary': '#9ca3af',
-                            'tertiary-soft': '#f9fafb'
+                            'primary-soft': '#f8fafc',
+                            'secondary-medium': '#f1f5f9',
+                            'tertiary-medium': '#e2e8f0',
+                            'tertiary': '#94a3b8',
+                            'tertiary-soft': '#f8fafc'
                         },
                         success: {
-                            DEFAULT: '#10b981',
-                            medium: '#34d399',
-                            strong: '#059669'
+                            DEFAULT: '#15803d',
+                            medium: '#22c55e',
+                            strong: '#166534'
                         },
                         danger: {
-                            DEFAULT: '#ef4444',
-                            medium: '#f87171',
-                            strong: '#dc2626'
+                            DEFAULT: '#b91c1c',
+                            medium: '#ef4444',
+                            strong: '#991b1b'
                         },
                         warning: {
-                            DEFAULT: '#f59e0b',
-                            medium: '#fbbf24',
-                            strong: '#d97706'
+                            DEFAULT: '#b45309',
+                            medium: '#f59e0b',
+                            strong: '#854d0e'
                         },
                         dark: {
-                            DEFAULT: '#1f2937',
-                            strong: '#111827'
+                            DEFAULT: '#1e293b',
+                            strong: '#0f172a'
                         }
                     },
                     borderRadius: {
-                        'base': '0.375rem'
+                        'base': '0.5rem'
                     }
                 }
             }
         }
     </script>
+    <style>
+        /* Linear gradient color match directly matching image_1b0bc1.png from left to right */
+        .exact-gradient-bg {
+            background: linear-gradient(to right, #71aed8, #a4e2d3);
+        }
+    </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4 font-sans">
+<body class="exact-gradient-bg min-h-screen flex items-center justify-center p-4 font-sans antialiased text-body">
 
-    <!-- Main Centered Container with half-page desktop constraint limits -->
-    <div class="w-full max-w-xl bg-white p-6 rounded-lg shadow-sm border border-gray-200 my-8">
+    <!-- Clean white card container to match the standalone input look from image_1b0bc1.png -->
+    <!-- Main Centered Container -->
+    <div class="w-full max-w-xl bg-white p-8 rounded-xl shadow-xl border border-slate-100 my-8">
 
-        <h1 class="text-2xl font-bold text-center mb-8 text-heading">Diabetes Prediction Form</h1>
+        <!-- WRAPPER 1: Form View (Visible by default) -->
+        <div id="form-view">
+            <h1 class="text-2xl font-bold text-center mb-8 text-heading tracking-tight">Diabetes Prediction Form</h1>
 
-        <form id="prediction-form" class="w-full">
-            <div class="mb-5">
-                <label for="pregnancies" class="block mb-2.5 text-sm font-medium text-heading">Pregnancies:</label>
-                <input type="number" id="pregnancies" name="Pregnancies" placeholder="e.g., 6" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
+            <form id="prediction-form" class="w-full space-y-5">
+                <div>
+                    <label for="pregnancies" class="block mb-2 text-sm font-semibold text-slate-700">Pregnancies:</label>
+                    <input type="number" id="pregnancies" name="Pregnancies" placeholder="e.g., 6" class="bg-neutral-primary-soft border border-slate-200 text-heading text-sm rounded-base focus:ring-2 focus:ring-brand/30 focus:border-brand block w-full px-4 py-3 shadow-xs placeholder:text-slate-400 transition-all outline-none" required>
+                </div>
+
+                <div>
+                    <label for="glucose" class="block mb-2 text-sm font-semibold text-slate-700">Glucose (mg/dL):</label>
+                    <input type="number" id="glucose" name="Glucose" placeholder="e.g., 148" class="bg-neutral-primary-soft border border-slate-200 text-heading text-sm rounded-base focus:ring-2 focus:ring-brand/30 focus:border-brand block w-full px-4 py-3 shadow-xs placeholder:text-slate-400 transition-all outline-none" required>
+                </div>
+
+                <div>
+                    <label for="blood-pressure" class="block mb-2 text-sm font-semibold text-slate-700">Blood Pressure (mm Hg):</label>
+                    <input type="number" id="blood-pressure" name="BloodPressure" placeholder="e.g., 72" class="bg-neutral-primary-soft border border-slate-200 text-heading text-sm rounded-base focus:ring-2 focus:ring-brand/30 focus:border-brand block w-full px-4 py-3 shadow-xs placeholder:text-slate-400 transition-all outline-none" required>
+                </div>
+
+                <div>
+                    <label for="skin-thickness" class="block mb-2 text-sm font-semibold text-slate-700">Skin Thickness (mm):</label>
+                    <input type="number" id="skin-thickness" name="SkinThickness" placeholder="e.g., 35" class="bg-neutral-primary-soft border border-slate-200 text-heading text-sm rounded-base focus:ring-2 focus:ring-brand/30 focus:border-brand block w-full px-4 py-3 shadow-xs placeholder:text-slate-400 transition-all outline-none" required>
+                </div>
+
+                <div>
+                    <label for="insulin" class="block mb-2 text-sm font-semibold text-slate-700">Insulin (μU/mL):</label>
+                    <input type="number" id="insulin" name="Insulin" placeholder="e.g., 0" class="bg-neutral-primary-soft border border-slate-200 text-heading text-sm rounded-base focus:ring-2 focus:ring-brand/30 focus:border-brand block w-full px-4 py-3 shadow-xs placeholder:text-slate-400 transition-all outline-none" required>
+                </div>
+
+                <div>
+                    <label for="bmi" class="block mb-2 text-sm font-semibold text-slate-700">BMI (Weight in kg/m²):</label>
+                    <input type="number" id="bmi" name="BMI" step="0.1" placeholder="e.g., 33.6" class="bg-neutral-primary-soft border border-slate-200 text-heading text-sm rounded-base focus:ring-2 focus:ring-brand/30 focus:border-brand block w-full px-4 py-3 shadow-xs placeholder:text-slate-400 transition-all outline-none" required>
+                </div>
+
+                <div>
+                    <label for="dpf" class="block mb-2 text-sm font-semibold text-slate-700">Diabetes Pedigree Function:</label>
+                    <input type="number" id="dpf" name="DiabetesPedigreeFunction" step="0.001" placeholder="e.g., 0.627" class="bg-neutral-primary-soft border border-slate-200 text-heading text-sm rounded-base focus:ring-2 focus:ring-brand/30 focus:border-brand block w-full px-4 py-3 shadow-xs placeholder:text-slate-400 transition-all outline-none" required>
+                </div>
+
+                <div class="mb-8">
+                    <label for="age" class="block mb-2 text-sm font-semibold text-slate-700">Age (years):</label>
+                    <input type="number" id="age" name="Age" placeholder="e.g., 50" class="bg-neutral-primary-soft border border-slate-200 text-heading text-sm rounded-base focus:ring-2 focus:ring-brand/30 focus:border-brand block w-full px-4 py-3 shadow-xs placeholder:text-slate-400 transition-all outline-none" required>
+                </div>
+
+                <button type="submit" class="w-full text-white bg-brand hover:bg-brand-strong focus:ring-4 focus:ring-brand/20 shadow-md shadow-brand/10 font-semibold leading-5 rounded-base text-sm px-4 py-3.5 focus:outline-none transition-all mt-4 transform active:scale-[0.99]">
+                    Predict
+                </button>
+            </form>
+        </div>
+
+        <!-- WRAPPER 2: Prediction Result Screen (Hidden by default, mirrors image_1b12a3.png) -->
+        <div id="result-view" class="hidden text-center py-4">
+            <h2 class="text-3xl text-slate-800 font-normal tracking-wide mb-6">Prediction Result</h2>
+
+            <!-- Health Result Indicator Badge -->
+            <div class="flex items-center justify-center gap-3 text-2xl font-normal text-slate-800 mb-2">
+                <span id="result-icon" class="text-3xl">🩸</span>
+                <span id="result-label">Diabetic</span>
             </div>
 
-            <div class="mb-5">
-                <label for="glucose" class="block mb-2.5 text-sm font-medium text-heading">Glucose:</label>
-                <input type="number" id="glucose" name="Glucose" placeholder="e.g., 148" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
-            </div>
+            <!-- Calculated probability metrics output line -->
+            <p class="text-slate-600 text-sm mb-8">
+                Probability of being <span id="probability-context">diabetic</span>: <span id="result-probability" class="font-medium">0.00%</span>
+            </p>
 
-            <div class="mb-5">
-                <label for="blood-pressure" class="block mb-2.5 text-sm font-medium text-heading">Blood Pressure:</label>
-                <input type="number" id="blood-pressure" name="BloodPressure" placeholder="e.g., 72" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
-            </div>
-
-            <div class="mb-5">
-                <label for="skin-thickness" class="block mb-2.5 text-sm font-medium text-heading">Skin Thickness:</label>
-                <input type="number" id="skin-thickness" name="SkinThickness" placeholder="e.g., 35" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
-            </div>
-
-            <div class="mb-5">
-                <label for="insulin" class="block mb-2.5 text-sm font-medium text-heading">Insulin:</label>
-                <input type="number" id="insulin" name="Insulin" placeholder="e.g., 0" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
-            </div>
-
-            <div class="mb-5">
-                <label for="bmi" class="block mb-2.5 text-sm font-medium text-heading">BMI:</label>
-                <input type="number" id="bmi" name="BMI" step="0.1" placeholder="e.g., 33.6" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
-            </div>
-
-            <div class="mb-5">
-                <label for="dpf" class="block mb-2.5 text-sm font-medium text-heading">Diabetes Pedigree Function:</label>
-                <input type="number" id="dpf" name="DiabetesPedigreeFunction" step="0.001" placeholder="e.g., 0.627" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
-            </div>
-
-            <div class="mb-5">
-                <label for="age" class="block mb-2.5 text-sm font-medium text-heading">Age:</label>
-                <input type="number" id="age" name="Age" placeholder="e.g., 50" class="bg-neutral-primary-soft border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required>
-            </div>
-
-            <!-- Primary Action Button -->
-            <button type="submit" class="w-full text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-semibold leading-5 rounded-base text-sm px-4 py-3 focus:outline-none transition-colors">
-                Predict
+            <!-- Navigation back control -->
+            <button id="go-back-btn" class="w-full text-white bg-slate-500 hover:bg-slate-600 font-normal rounded-base text-sm px-4 py-3 transition-colors outline-none focus:outline-none">
+                Go Back
             </button>
-        </form>
+        </div>
 
-        <!-- Nested dynamic data response element location target -->
-        <div id="result-container" class="w-full"></div>
     </div>
-
     <script src="/static/script.js"></script>
 </body>
 </html>
